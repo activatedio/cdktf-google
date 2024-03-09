@@ -1,0 +1,8 @@
+dist
+node_modules
+*.d.ts
+tsconfig.tsbuildinfo
+!jest.config.js
+!setup.js
+.idea
+build
