@@ -1,2 +1,2 @@
-export * from 'cluster';
+export * from './cluster';
 export * from './workloadserviceaccont';

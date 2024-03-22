@@ -106,6 +106,7 @@ class Cluster extends Construct {
             machineType: np.machineType,
             serviceAccount: this.serviceAccount.email,
             oauthScopes: ['https://www.googleapis.com/auth/cloud-platform'],
+            tags: [`gke-${props.name}-${np.name}`],
           },
         }
       );
