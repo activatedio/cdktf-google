@@ -86,6 +86,9 @@ class Cluster extends Construct {
         },
         network: subnetwork.network,
         subnetwork: subnetwork.selfLink,
+        lifecycle: {
+          ignoreChanges: ['node_config'],
+        },
       }
     );
 
