@@ -57,6 +57,9 @@ class Cluster extends Construct {
         removeDefaultNodePool: true,
         initialNodeCount: 1,
         enableL4IlbSubsetting: true,
+        nodeConfig: {
+          tags: [`gke-${props.name}-default`],
+        },
         workloadIdentityConfig: {
           workloadPool: `${props.project}.svc.id.goog`,
         },
