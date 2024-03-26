@@ -1,5 +1,6 @@
 import {Construct} from 'constructs';
 
+import * as cdktf from 'cdktf';
 import * as google from '@cdktf/provider-google';
 
 interface INodePoolProps {
@@ -10,7 +11,7 @@ interface INodePoolProps {
   nodeLocations?: string[];
 }
 
-interface IClusterProps {
+interface IClusterProps extends cdktf.TerraformMetaArguments {
   project: string;
   masterCidr: string;
   servicesSecondarySubnetName: string;

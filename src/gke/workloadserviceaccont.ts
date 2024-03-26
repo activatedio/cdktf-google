@@ -1,11 +1,12 @@
 import {Construct} from 'constructs';
 import * as google from '@cdktf/provider-google';
+import * as cdktf from 'cdktf';
 
 interface IWorkloadServiceAccountK8sSA {
   namespace: string;
   name: string;
 }
-interface IWorkloadServiceAccount {
+interface IWorkloadServiceAccountProps extends cdktf.TerraformMetaArguments {
   name: string;
   project: string;
   k8sSAs: IWorkloadServiceAccountK8sSA[];
@@ -13,7 +14,7 @@ interface IWorkloadServiceAccount {
 
 class WorkloadServiceAccont extends Construct {
   public readonly serviceAccount: google.serviceAccount.ServiceAccount;
-  constructor(scope: Construct, id: string, props: IWorkloadServiceAccount) {
+  constructor(scope: Construct, id: string, props: IWorkloadServiceAccountProps) {
     super(scope, id);
 
     this.serviceAccount = new google.serviceAccount.ServiceAccount(this, 'sa', {
@@ -35,4 +36,4 @@ class WorkloadServiceAccont extends Construct {
   }
 }
 
-export {WorkloadServiceAccont, IWorkloadServiceAccount};
+export {WorkloadServiceAccont, IWorkloadServiceAccountProps};
