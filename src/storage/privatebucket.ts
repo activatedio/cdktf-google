@@ -5,7 +5,7 @@ import * as random from '@cdktf/provider-random';
 interface IPrivateBucketProps {
   prefix: string;
   location: string;
-  policy: string;
+  policy?: string;
 }
 
 class PrivateBucket extends Construct {
@@ -25,10 +25,12 @@ class PrivateBucket extends Construct {
       location: props.location,
     });
 
-    new google.storageBucketIamPolicy.StorageBucketIamPolicy(this, 'policy', {
-      bucket: this.bucket.name,
-      policyData: props.policy,
-    });
+    if (props.policy) {
+      new google.storageBucketIamPolicy.StorageBucketIamPolicy(this, 'policy', {
+        bucket: this.bucket.name,
+        policyData: props.policy,
+      });
+    }
   }
 }
 
