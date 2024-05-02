@@ -14,7 +14,11 @@ interface IWorkloadServiceAccountProps extends cdktf.TerraformMetaArguments {
 
 class WorkloadServiceAccont extends Construct {
   public readonly serviceAccount: google.serviceAccount.ServiceAccount;
-  constructor(scope: Construct, id: string, props: IWorkloadServiceAccountProps) {
+  constructor(
+    scope: Construct,
+    id: string,
+    props: IWorkloadServiceAccountProps
+  ) {
     super(scope, id);
 
     this.serviceAccount = new google.serviceAccount.ServiceAccount(this, 'sa', {

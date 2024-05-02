@@ -11,6 +11,7 @@ interface INodePoolProps {
   maxTotalCount?: number;
   machineType: string;
   nodeLocations?: string[];
+  taints?: google.containerNodePool.ContainerNodePoolNodeConfigTaint[];
 }
 
 interface IClusterProps extends cdktf.TerraformMetaArguments {
@@ -120,6 +121,7 @@ class Cluster extends Construct {
             machineType: np.machineType,
             serviceAccount: this.serviceAccount.email,
             oauthScopes: ['https://www.googleapis.com/auth/cloud-platform'],
+            taint: np.taints,
             tags: [`gke-${props.name}-${np.name}`],
           },
         }
@@ -128,4 +130,4 @@ class Cluster extends Construct {
   }
 }
 
-export {Cluster, IClusterProps};
+export {Cluster, IClusterProps, INodePoolProps};
