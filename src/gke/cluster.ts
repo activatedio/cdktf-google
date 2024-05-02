@@ -5,8 +5,10 @@ import * as google from '@cdktf/provider-google';
 
 interface INodePoolProps {
   name: string;
-  minTotalCount: number;
-  maxTotalCount: number;
+  minZoneCount?: number;
+  maxZoneCount?: number;
+  minTotalCount?: number;
+  maxTotalCount?: number;
   machineType: string;
   nodeLocations?: string[];
 }
@@ -20,6 +22,7 @@ interface IClusterProps extends cdktf.TerraformMetaArguments {
   networkHostProject: string;
   subnetwork: string;
   allowedAccessCidrs: string[];
+  defaultNodeLocations?: string[];
   nodePools: INodePoolProps[];
 }
 
@@ -58,6 +61,7 @@ class Cluster extends Construct {
         removeDefaultNodePool: true,
         initialNodeCount: 1,
         enableL4IlbSubsetting: true,
+        nodeLocations: props.defaultNodeLocations,
         nodeConfig: {
           tags: [`gke-${props.name}-default`],
         },
@@ -102,8 +106,11 @@ class Cluster extends Construct {
           cluster: this.cluster.name,
           nodeLocations: np.nodeLocations,
           autoscaling: {
+            maxNodeCount: np.maxZoneCount,
+            minNodeCount: np.minZoneCount,
             totalMaxNodeCount: np.maxTotalCount,
             totalMinNodeCount: np.minTotalCount,
+            locationPolicy: 'BALANCED',
           },
           nodeConfig: {
             workloadMetadataConfig: {
