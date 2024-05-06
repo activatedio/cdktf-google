@@ -10,6 +10,7 @@ interface IVerifiedCertificateProps {
 
 class VerifiedCertificate extends Construct {
   public readonly certificate: google.certificateManagerCertificate.CertificateManagerCertificate;
+  public readonly domains: string[];
   constructor(scope: Construct, id: string, props: IVerifiedCertificateProps) {
     super(scope, id);
 
@@ -37,6 +38,8 @@ class VerifiedCertificate extends Construct {
         }
       );
 
+    this.domains = props.name === '*' ? [fullName, dnsName] : [fullName];
+
     this.certificate =
       new google.certificateManagerCertificate.CertificateManagerCertificate(
         this,
@@ -44,7 +47,8 @@ class VerifiedCertificate extends Construct {
         {
           name: fullNameSafe,
           managed: {
-            domains: [fullName],
+            // We include the apex along with any wildcard
+            domains: this.domains,
             dnsAuthorizations: [auth.id],
           },
         }

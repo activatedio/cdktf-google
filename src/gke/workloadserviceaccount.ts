@@ -12,7 +12,7 @@ interface IWorkloadServiceAccountProps extends cdktf.TerraformMetaArguments {
   k8sSAs: IWorkloadServiceAccountK8sSA[];
 }
 
-class WorkloadServiceAccont extends Construct {
+class WorkloadServiceAccount extends Construct {
   public readonly serviceAccount: google.serviceAccount.ServiceAccount;
   constructor(
     scope: Construct,
@@ -34,10 +34,10 @@ class WorkloadServiceAccont extends Construct {
           ksa =>
             `serviceAccount:${props.project}.svc.id.goog[${ksa.namespace}/${ksa.name}]`
         ),
-        role: 'roles/iam.serviceAccountTokenCreator',
+        role: 'roles/iam.workloadIdentityUser',
       }
     );
   }
 }
 
-export {WorkloadServiceAccont, IWorkloadServiceAccountProps};
+export {WorkloadServiceAccount, IWorkloadServiceAccountProps};

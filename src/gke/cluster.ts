@@ -106,6 +106,7 @@ class Cluster extends Construct {
           name: np.name,
           cluster: this.cluster.name,
           nodeLocations: np.nodeLocations,
+          initialNodeCount: 1,
           autoscaling: {
             maxNodeCount: np.maxZoneCount,
             minNodeCount: np.minZoneCount,
