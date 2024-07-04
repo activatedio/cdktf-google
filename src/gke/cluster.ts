@@ -11,6 +11,7 @@ interface INodePoolProps {
   maxTotalCount?: number;
   machineType: string;
   nodeLocations?: string[];
+  preemptible?: boolean;
   taints?: google.containerNodePool.ContainerNodePoolNodeConfigTaint[];
 }
 
@@ -118,7 +119,7 @@ class Cluster extends Construct {
             workloadMetadataConfig: {
               mode: 'GKE_METADATA',
             },
-            preemptible: true,
+            preemptible: np.preemptible,
             machineType: np.machineType,
             serviceAccount: this.serviceAccount.email,
             oauthScopes: ['https://www.googleapis.com/auth/cloud-platform'],
