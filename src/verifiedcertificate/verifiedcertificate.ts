@@ -33,12 +33,12 @@ class VerifiedCertificate extends Construct {
         this,
         'authorization',
         {
-          domain: props.name === '*' ? dnsName : fullName,
+          domain: fullName.replace('*.', ''),
           name: fullNameSafe,
         }
       );
 
-    this.domains = props.name === '*' ? [fullName, dnsName] : [fullName];
+    this.domains = props.name.includes('*') ? [fullName, fullName.replace('*.', '')] : [fullName];
 
     this.certificate =
       new google.certificateManagerCertificate.CertificateManagerCertificate(

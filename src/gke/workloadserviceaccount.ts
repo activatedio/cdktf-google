@@ -34,7 +34,7 @@ class WorkloadServiceAccount extends Construct {
           ksa =>
             `serviceAccount:${props.project}.svc.id.goog[${ksa.namespace}/${ksa.name}]`
         ),
-        role: 'roles/iam.workloadIdentityUser',
+        role: 'roles/iam.serviceAccountTokenCreator',
       }
     );
   }
