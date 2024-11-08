@@ -2,6 +2,7 @@ import {Construct} from 'constructs';
 import * as google from '@cdktf/provider-google';
 
 interface ITailscaleProps {
+  routes: string[];
   name: string;
   authToken: string;
   instances: ITailscaleInstanceProps[];
@@ -42,8 +43,13 @@ class Tailscale extends Construct {
 
       const script = `#!/bin/bash
 set +e
+apt-get update
+apt-get upgrade -y
 echo "Starting Tailscale install"
-curl -fsSL https://tailscale.com/install.sh | sh && sudo tailscale up --auth-key=${props.authToken} --advertise-exit-node
+echo 'net.ipv4.ip_forward = 1' >> /etc/sysctl.d/99-tailscale.conf
+echo 'net.ipv6.conf.all.forwarding = 1' >> /etc/sysctl.d/99-tailscale.conf
+sysctl -p /etc/sysctl.d/99-tailscale.conf
+curl -fsSL https://tailscale.com/install.sh | sh && sudo tailscale up --auth-key=${props.authToken} --advertise-exit-node --advertise-routes=${props.routes.join(",")}
 echo "Finished Tailscale install"
 `;
 
@@ -57,7 +63,7 @@ echo "Finished Tailscale install"
         allowStoppingForUpdate: true,
         bootDisk: {
           initializeParams: {
-            image: 'ubuntu-2204-jammy-v20231213a',
+            image: 'ubuntu-minimal-2410-oracular-amd64-v20241021',
           },
         },
         networkInterface: [
