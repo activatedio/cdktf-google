@@ -4,6 +4,9 @@
   "description": "TypeScript library for CDKTF for google",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
+  "files": [
+    "build/*"
+  ],
   "scripts": {
     "prepublish": "tsc",
     "build": "tsc",
