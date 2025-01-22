@@ -6,7 +6,7 @@
   "types": "build/src/index.d.ts",
   "scripts": {
     "prepublish": "tsc",
-    "build": "tsc ",
+    "build": "tsc",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "gts lint",
@@ -22,6 +22,7 @@
     "url": "git+ssh://git@github.com/activatedio/cdktf-google.git"
   },
   "keywords": [
+    "Google",
     "Terraform",
     "CDK"
   ],
@@ -33,8 +34,8 @@
   "homepage": "https://github.com/activatedio/cdktf-google#readme",
   "peerDependencies": {
     "@cdktf/provider-google": "^12.2.0",
-    "@cdktf/provider-random": "^10.0.1",
-    "cdktf": "^0.19.2",
+    "@cdktf/provider-random": "^11.0.0",
+    "cdktf": "^0.20.8",
     "constructs": "^10.3.0"
   },
   "devDependencies": {
@@ -47,8 +48,8 @@
   },
   "dependencies": {
     "@cdktf/provider-google": "^12.2.0",
-    "@cdktf/provider-random": "^10.0.1",
-    "cdktf": "^0.19.2",
-    "constructs": "^10.3.0"
+    "@cdktf/provider-random": "^11.0.0",
+    "cdktf": "^0.20.8",
+    "constructs": "10.3.0"
   }
 }

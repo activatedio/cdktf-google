@@ -4,7 +4,8 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "rootDir": ".",
-    "outDir": "build"
+    "outDir": "build",
+    "declaration": true
   },
   "include": [
     "src/**/*.ts",
